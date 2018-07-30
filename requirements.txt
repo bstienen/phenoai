@@ -1,0 +1,2 @@
+pyslha
+requests
