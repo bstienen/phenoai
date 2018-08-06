@@ -1,3 +1,7 @@
+## Version 0.1.4
+# Added
+* Changelog is now added to package
+
 ## Version 0.1.3 (Aug 6th, 2018)
 # Added
 * Timout parameters in all functions and methods that make connection to an outside server

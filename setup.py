@@ -15,7 +15,7 @@ setuptools.setup(
 	keywords='high energy physics machine learning phenomenology limits exclusion likleihood likelihoods',
 	url='http://hef.ru.nl/~bstienen/phenoai',
 	license='MIT',
-	data_files = [("", ["LICENSE","README.md"])],
+	data_files = [("", ["LICENSE","README.md","CHANGELOG.md"])],
 	packages=setuptools.find_packages(),
 	classifiers=(
 		'Development Status :: 4 - Beta',
@@ -27,4 +27,3 @@ setuptools.setup(
 		'Topic :: Scientific/Engineering :: Artificial Intelligence'),
 	install_requires=['pyslha','requests','h5py','numpy','matplotlib','scipy']
 )
-
