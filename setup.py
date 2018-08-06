@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
 	name='phenoai',
-	version='0.1.2',
+	version='0.1.3',
 	author='Bob Stienen',
 	author_email='b.stienen@science.ru.nl',
 	description='Machine Learning interface for High Energy Physics Phenomenology',
