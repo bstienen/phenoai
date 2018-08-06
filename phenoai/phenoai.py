@@ -13,7 +13,6 @@ import sys
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from socketserver import ThreadingMixIn
 
-import requests
 import numpy as np
 import json
 import pyslha
@@ -140,10 +139,10 @@ class PhenoAI(object):
 		global __serverinstance__
 		logger.info("Starting server...")
 		logger.info("Checking for valid PhenoAI instance")
-		if port < 1025: 
+		if port < 1025:
 			raise exceptions.ServerException("Port of the server should be at least 1025.")
 		server_address = (address, port)
-		
+
 		handler = PhenoAIServerRequestHandler
 		if not utils.is_none(to_string_function):
 			if not callable(to_string_function):
@@ -299,7 +298,7 @@ class PhenoAIServerRequestHandler(BaseHTTPRequestHandler):
 				# Create files in tmp folder
 				filepath = "/tmp/{}.phenoai".format(utils.random_string(16))
 				filepath_interpreted = "/tmp/{}_interpreted.phenoai".format(utils.random_string(16))
-				
+
 				logger.debug("Calling run procedure of PhenoAI server instance")
 				try:
 					with open(filepath, "w") as tmpfile:
@@ -307,13 +306,13 @@ class PhenoAIServerRequestHandler(BaseHTTPRequestHandler):
 					results = __serverinstance__.run(filepath, map_data=bool(float(post['mapping'])), ainalysis_ids=ainalysis_ids, data_ids=data_ids)
 					os.remove(filepath)
 				except:
-					
+
 					with open(filepath_interpreted, "w") as tmpfile:
 						#tmpfile.write(ast.literal_eval(post['data']))
 						tmpfile.write(post['data'])
 					results = __serverinstance__.run(filepath_interpreted, map_data=bool(float(post['mapping'])), ainalysis_ids=ainalysis_ids, data_ids=data_ids)
 					os.remove(filepath_interpreted)
-				
+
 				if os.path.exists(filepath):
 					os.remove(filepath)
 				if os.path.exists(filepath_interpreted):

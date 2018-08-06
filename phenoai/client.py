@@ -28,14 +28,14 @@ class PhenoAIClient(object):
 	ainalysis_ids: list of strings
 		List of AInalysis IDs corresponding to the AInalyses to be run at the server side. Be aware that only initialized AInalyses will be selectable via this list.
 	port: integer
-		Port of the server to which the requests have to be send. 
-	
+		Port of the server to which the requests have to be send.
+
 	Constructor arguments
 	---------------------
 	address: string
 		IP address of the server. 'localhost' is also a valid address.
 	port: integer
-		Port of the server to which the requests have to be send. 
+		Port of the server to which the requests have to be send.
 	ainalysis_ids: list of strings (default: `None`)
 		List of AInalysis IDs corresponding to the AInalyses to be run at the server side. Be aware that only initialized AInalyses will be selectable via this list. """
 
@@ -67,7 +67,7 @@ class PhenoAIClient(object):
 		# Set address and port
 		self.address = address
 		self.port = port
-	def check_connection(self, address, port):
+	def check_connection(self, address, port, timeout=5):
 		""" Checks if a connection to a server can be made
 
 		Sends a GET request to the server defined via the address and port arguments. If a PhenoAI instance is running on that server that is listening to that port, the returned text will be received by this function and (True, None) will be returned. If an error occured in the request itself or the processing of this request, (False, [errortext]) will be returned, where [errortext] is the description of the error raised.
@@ -78,6 +78,8 @@ class PhenoAIClient(object):
 			IP address of the server. 'localhost' is also a valid address.
 		port: integer
 			Port of the server to which the requests have to be send.
+		timeout: float or `None` (default: 5)
+			Time to wait for the server to respond. If set to `None`, script will wait indefinitely.
 
 		Returns
 		-------
@@ -87,7 +89,10 @@ class PhenoAIClient(object):
 			If can_connect is False, this variable contains the exception that caused the connection to fail. If a connection could be established, this value is None. """
 
 		try:
-			response = requests.get("http://{}:{}".format(address, port))
+			if not utils.is_none(timeout):
+				response = requests.get("http://{}:{}".format(address, port))
+			else:
+				response = requests.get("http://{}:{}".format(address, port))
 			response = response.text
 			if response[:10] == "phenoai-ok":
 				return (True, None)
@@ -96,25 +101,27 @@ class PhenoAIClient(object):
 			return (False, response)
 		except Exception as e:
 			return (False, str(e))
-	def predict(self, data, map_data=False, data_ids=None, return_object=True):
+	def predict(self, data, map_data=False, data_ids=None, return_object=True, timeout=5):
 		""" Queries the server for prediction on provided data
 
 		Send the provided data to the server set via the set_server method. Depening on the value set for the return_object argument this function will return a copy of the PhenoAIResults object created at the server (True) or a string representation (False). The exact string returned depends on the configuration of the PhenoAI object at the server.
 
 		AInalyses used in prediction at the server depend on the values set in the ainalysis_ids property of this object. Only AInalyses that have been added to the PhenoAI object before run_as_server was called are selectable through this property.
 
-		In contrast to PhenoAI objects not running in server mode, server PhenoAI objects can only process a single file at a time. 
+		In contrast to PhenoAI objects not running in server mode, server PhenoAI objects can only process a single file at a time.
 
 		Parameters
 		----------
 		data: numpy.ndarray or string
 			Data can be provided as a numpy ndarray, but it can also be the location of a single data file (e.g. a .slha file). This file will then be read and its complete contents will be sent to the server to be read by the file reader interfaces defined for the running AInalyses. You can only provide a single file per call.
-		map_data: boolean or 'both' (default: `False`) 
+		map_data: boolean or 'both' (default: `False`)
 			Boolean indicating if data should be mapped by the AInalyses before running a prediction on it. Can also be 'both', indicating that the prediction has to be run on the mapped and not-mapped data.
 		data_ids: List or numpy.ndarray (default: `None`)
 			List or numpy array containing IDs for the provided data. Should have same length as data array.
 		return_object: boolean (default: `True`)
-			Boolean indicating if the function has to return a copy of the PhenoAIResults object created at the server (True) or a string representation of it (False). If a string has to be returned, the contents of this string is determined by the server configuration (see run_as_server method of the phenoai.phenoai class). 
+			Boolean indicating if the function has to return a copy of the PhenoAIResults object created at the server (True) or a string representation of it (False). If a string has to be returned, the contents of this string is determined by the server configuration (see run_as_server method of the phenoai.phenoai class).
+		timeout: float or `None` (default: 5)
+			Time to wait for the server to respond. If set to `None`, script will wait indefinitely.
 
 		Returns
 		-------
@@ -187,8 +194,8 @@ class PhenoAIClient(object):
 		else:
 			postdict["get_results_as_string"] = 1.0
 
-		return self.communicate(postdict, return_object)
-	def communicate(self, post_dictionary, return_object=True):
+		return self.communicate(postdict, return_object, timeout)
+	def communicate(self, post_dictionary, return_object=True, timeout=5):
 		""" Sends a request to the server
 
 		This method is internally used to make a request to the server. As a user you should use the predict method instead.
@@ -198,7 +205,9 @@ class PhenoAIClient(object):
 		post_dictionary: dictionary
 			Dictionary that has to be send by POST command
 		return_object: boolean (default: True)
-			Boolean indicating if the function has to return a copy of the PhenoAIResults object created at the server (True) or a string representation of it (False). If a string has to be returned, the contents of this string is determined by the server configuration (see run_as_server method of the phenoai.phenoai class). 
+			Boolean indicating if the function has to return a copy of the PhenoAIResults object created at the server (True) or a string representation of it (False). If a string has to be returned, the contents of this string is determined by the server configuration (see run_as_server method of the phenoai.phenoai class).
+		timeout: float or `None` (default: 5)
+			Time to wait for the server to respond. If set to `None`, script will wait indefinitely.
 
 		Returns
 		-------
@@ -206,7 +215,7 @@ class PhenoAIClient(object):
 			Prediction results created at the server. Type of this value is controlled by the value of the return_object argument of this method. """
 
 		# Read and decode json
-		r = requests.post('http://{}:{}'.format(self.address, self.port), data=post_dictionary)
+		r = requests.post('http://{}:{}'.format(self.address, self.port), data=post_dictionary, timeout=timeout)
 		response = r.json()
 		# Check if error occured
 		if response['status'] == 'error':

@@ -53,14 +53,14 @@ def check_ainalysis_update(uniquedbid, version):
 	answer = query_server("ainalysis", {"ainalysis":uniquedbid, "current":version})
 	logger.set_indent("-")
 	return (answer["error"], answer["update"], format_server_message(answer["text"]))
-	
+
 def check_phenoai_update():
 	""" Check if there is a new version available for the PhenoAI package
 
 	Checks if a new version is available for the PhenoAI package. Versions are automatically checked for compatibility with versions of currently installed libraries and the running python version. Querying of server is done by query_server function in this module.
 
 	!IMPORTANT! This function does not automatically install the new PhenoAI version.
-	
+
 	Returns
 	-------
 	error: boolean
@@ -85,8 +85,8 @@ def query_server(target, extra_post_data=None):
 	target: string
 		Select which update script to call on the server. Can be 'ainalysis' or 'phenoai'.
 	extra_post_data: dictionary
-		Add extra information to the dictionary that is sent to the server via POST request. 
-	
+		Add extra information to the dictionary that is sent to the server via POST request.
+
 	Returns
 	-------
 	json_decoded: dictionary
@@ -101,12 +101,12 @@ def query_server(target, extra_post_data=None):
 			postdata[lib] = package.__version__
 		except:
 			pass
-		
+
 	if not utils.is_none(extra_post_data):
 		postdata.update( extra_post_data )
 
 	try:
-		data = requests.post(__apiurl__.format(target), data=postdata)
+		data = requests.post(__apiurl__.format(target), data=postdata, timeout=5)
 		logger.debug("Data returned from server: {}".format(data.text))
 		j = data.json()
 		return j
