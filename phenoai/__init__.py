@@ -5,8 +5,8 @@ Generalization over machine learning methods is a key concept of PhenoAI: it dep
 To load estimators, they have to be wrapped in a PhenoAI-specific format: an AInalysis. The .maker module allows the user to store estimators in this format."""
 
 # Package meta data
-__version__ = "0.1.2"
-__versionnumber__ = 3
-__versiondate__ = "2018-05-09"
+__version__ = "0.1.3"
+__versionnumber__ = 4
+__versiondate__ = "2018-08-06"
 __author__ = "Bob Stienen"
 __apiurl__ = "http://www.hef.ru.nl/~bstienen/phenoai/api/update_{}.php"
