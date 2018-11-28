@@ -14,4 +14,6 @@ Documentation, a quick start guide and a range of examples can be found on the o
 
 # To Do
 
+- Make documentation with Sphinx
 - Add support for ROOT trained algorithms
+- Make z-score normalisation a supported by default functions in the package and let it be written to the functions.py file in the AInalysis maker
