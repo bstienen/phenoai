@@ -593,7 +593,7 @@ class AInalysisMaker:
             formats can be read by the filereader. Setting it to `None`
             indicates no filereader is supplied. Default is `None`."""
         # Check if application box is already defined
-        if self.configuration["parameters"] is not None:
+        if self.configuration["parameters"] is None:
             logger.error(("File reader can only be defined after defining the "
                           "application box via .set_application_box()"))
             raise exceptions.MakerError(("File reader can only be defined "
@@ -945,7 +945,7 @@ class AboutMaker:
         configured: :obj:`bool`
             `True` if all tests as mentioned above are passed, `False`
             otherwise."""
-        if self.authors:
+        if len(self.authors) == 0:
             logger.error("No authors are specified for the AInalysis.")
             return False
         n = 0
@@ -967,8 +967,9 @@ class AboutMaker:
         the page property of the :obj:`phenoai.maker.AboutMaker` instance. Any
         content stored in this property before this function is called is
         deleted in the proces."""
-        begin = get_template_file('maker.begin.html')
-        begin.format({'name': self.name})
+        begin = get_template_file('maker.header.html')
+        style = get_template_file('maker.style.html')
+        begin.format(name=self.name, style=style)
         self.page += begin
 
     def make_header(self):
@@ -1163,13 +1164,13 @@ class AboutMaker:
         parameters = ''
         for n, i in enumerate(self.configuration["parameters"]):
             parameter = get_template_file('maker.parameter.html')
-            parameter = parameter.format({
-                'num': n,
-                'name': i[0],
-                'unit': i[1],
-                'min': i[2],
-                'max': i[3]
-            })
+            parameter = parameter.format(
+                num=n,
+                name=i[0],
+                unit=i[1],
+                min=i[2],
+                max=i[3]
+            )
             parameters += parameter
         self.page += '<h3>Parameters and training ranges (in order)</h3>\n'
         self.page += ('<div id="parameters" class="color">\n{}<br />'
@@ -1213,21 +1214,17 @@ class AboutMaker:
             Description of the property written in such a way that it makes
             clear what the property exactly does. """
         cell = get_template_file('maker.cell.html')
-        cell = cell.format({
-            'name': name,
-            'content': content,
-            'description': description
-        })
+        cell = cell.format(name=name, content=content, description=description)
         self.page += cell
 
     def make_footer(self):
         """ Creates the footer for the about.html page and adds this code to
         the page property of the :obj:`phenoai.maker.AboutMaker` instance. """
         footer = get_template_file('maker.footer.html')
-        footer = footer.format({
-            'version': __version__,
-            'datetime': datetime.datetime.now()
-        })
+        footer = footer.format(
+            version=__version__,
+            datetime=datetime.datetime.now()
+        )
         self.page += footer
 
     def make(self, configuration, location):
@@ -1550,4 +1547,5 @@ def get_template_file(filename):
         Contents of the requested file"""
     path = '/'.join(('templates', filename))
     template = pkg_resources.resource_string('phenoai', path)
+    template = template.decode("utf-8")
     return template

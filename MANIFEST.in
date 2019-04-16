@@ -1,2 +1,4 @@
 include LICENSE
 include README.rst
+include phenoai/templates/*.py
+include phenoai/templates/*.html
