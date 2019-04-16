@@ -5,7 +5,7 @@
 """
 import pytest
 
-from phenoai import phenoai
+from phenoai import PhenoAI
 
 
 def test_something():
