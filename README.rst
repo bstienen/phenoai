@@ -29,3 +29,5 @@ official PhenoAI website:
 
 - Add z-score normalisation as a function in the utils.py
 - Enable update checker after online library interface is created
+- Create unittests
+- Implement Travis CI test builds
