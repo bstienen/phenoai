@@ -493,11 +493,11 @@ class AInalysisResults:
         selection_mins = self.get(self.data, i)
         selection_maxs = deepcopy(selection_mins)
         for j in range(len(self.configuration["parameters"])):
-            i_min = self.configuration["parameters"][i][2]
-            i_max = self.configuration["parameters"][i][3]
+            i_min = self.configuration["parameters"][j][2]
+            i_max = self.configuration["parameters"][j][3]
             if use_map_target_area:
-                r = (self.configuration["parameters"][i][3] -
-                     self.configuration["parameters"][i][2])
+                r = (self.configuration["parameters"][j][3] -
+                     self.configuration["parameters"][j][2])
                 i_min += r * self.configuration["mapping"]
                 i_max -= r * self.configuration["mapping"]
             selection_mins[j] -= i_min

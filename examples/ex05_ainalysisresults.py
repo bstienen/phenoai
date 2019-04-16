@@ -20,7 +20,7 @@ data_ids = ['a','b','c','d','e','f','g','h','i','j']
 
 # Create PhenoAI instance and load AInalysis
 
-from phenoai.phenoai import PhenoAI
+from phenoai import PhenoAI
 from phenoai import logger
 
 logger.to_stream(0)
