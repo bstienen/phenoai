@@ -1,2 +1,24 @@
-phenoai.egg-info/*
-dist/*
+*.py[cod]
+*.egg-info
+*.eggs
+.ipynb_checkpoints
+.vscode
+
+build
+dist
+.cache
+__pycache__
+
+htmlcov
+.coverage
+coverage.xml
+.pytest_cache
+
+README.old.rst
+
+docs
+
+# ide
+.idea
+.eclipse
+.vscode

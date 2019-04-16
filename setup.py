@@ -1,29 +1,62 @@
-#from distutils.core import setup
-import setuptools
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import os
 
-with open("README.md", "r") as fh:
-	long_description = fh.read()
+from setuptools import setup
 
-setuptools.setup(
-	name='phenoai',
-	version='0.1.3',
-	author='Bob Stienen',
-	author_email='b.stienen@science.ru.nl',
-	description='Machine Learning interface for High Energy Physics Phenomenology',
-	long_description=long_description,
-	long_description_content_type="text/markdown",
-	keywords='high energy physics machine learning phenomenology limits exclusion likleihood likelihoods',
-	url='http://hef.ru.nl/~bstienen/phenoai',
-	license='MIT',
-	data_files = [("", ["LICENSE","README.md","CHANGELOG.md"])],
-	packages=setuptools.find_packages(),
-	classifiers=(
-		'Development Status :: 4 - Beta',
-		'Programming Language :: Python :: 3',
-		'Intended Audience :: Science/Research',
-		'License :: OSI Approved :: MIT License',
-		'Natural Language :: English',
-		'Topic :: Scientific/Engineering :: Physics',
-		'Topic :: Scientific/Engineering :: Artificial Intelligence'),
-	install_requires=['pyslha','requests','h5py','numpy','matplotlib','scipy']
+here = os.path.abspath(os.path.dirname(__file__))
+
+# To update the package version number, edit phenoai/__version__.py
+version = {}
+with open(os.path.join(here, 'phenoai', '__version__.py')) as f:
+    exec(f.read(), version)
+
+with open('README.rst') as readme_file:
+    readme = readme_file.read()
+
+setup(
+    name='phenoai',
+    version=version['__version__'],
+    description="Machine Learning interface for High Energy Physics Phenomenology",
+    long_description=readme + '\n\n',
+    author="Bob Stienen",
+    author_email='b.stienen@science.ru.nl',
+    url='https://github.com//phenoai',
+    packages=[
+        'phenoai',
+    ],
+    package_dir={'phenoai':
+                 'phenoai'},
+    include_package_data=True,
+    license="MIT license",
+    zip_safe=False,
+    keywords='phenoai',
+    classifiers=[
+        'Development Status :: 2 - Pre-Alpha',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: MIT License',
+        'Natural Language :: English',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+    ],
+    test_suite='tests',
+    install_requires=[],  # FIXME: add your package's dependencies to this list
+    setup_requires=[
+        # dependency for `python setup.py test`
+        'pytest-runner',
+        # dependencies for `python setup.py build_sphinx`
+        'sphinx',
+        'sphinx_rtd_theme',
+        'recommonmark'
+    ],
+    tests_require=[
+        'pytest',
+        'pytest-cov',
+        'pycodestyle',
+    ],
+    extras_require={
+        'dev':  ['prospector[with_pyroma]', 'yapf', 'isort'],
+    }
 )
