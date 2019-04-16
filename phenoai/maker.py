@@ -1510,11 +1510,11 @@ def generate_calibration_arrays(truth, prediction, nbins=100):
     # Define values and bin centers
     probabilities = np.maximum(vmins, vmaxs) / (vmins + vmaxs)
     nans = np.isnan(probabilities)
-    if not nans:
+    if nans.any():
+        probabilities[nans] = 0.5
         logger.warning(("Calibration yielded NaN values. These are "
                         "substituted for 0.5 in order to guarantee the "
                         "workings of PhenoAI."))
-    probabilities[nans] = 0.5
     centers = bins[:-1] + (bins[1] - bins[0]) / 2.0
     # Return centers and values
     return (centers, probabilities)

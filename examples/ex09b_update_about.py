@@ -35,7 +35,7 @@ logger.to_stream(lvl=0)
 
 m = maker.AInalysisMaker(
 	default_id="my_own_classifier",
-	location="./my_updated_first_analysis_09b",
+	location="./my_updated_first_ainalysis_09b",
 	versionnumber=1,
 	overwrite=True)
 

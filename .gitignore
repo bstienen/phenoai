@@ -17,7 +17,14 @@ coverage.xml
 README.old.rst
 
 docs
-example_ainalysis
+
+examples/example_ainalysis
+examples/my_first_ainalysis
+examples/my_second_ainalysis
+examples/my_updated_first_ainalysis
+examples/my_updated_first_ainalysis_09b
+examples/phenoai_server.log
+examples/loggertest.out
 
 # ide
 .idea
