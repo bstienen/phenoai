@@ -14,6 +14,7 @@ Example 08b shows how to implement the creation of a regression AInalysis.
 # Create the data to be used in classification
 
 import numpy as np
+import sklearn
 from sklearn.datasets import make_classification
 from sklearn.model_selection import train_test_split
 
@@ -40,6 +41,7 @@ print("Accuracy of trained classifier: {}".format(clf.score(X_test, y_test)))
 
 from phenoai import logger
 from phenoai import maker
+from phenoai import __version__
 logger.to_stream(lvl=0)
 
 # Create AInalysis maker
