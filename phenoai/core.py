@@ -410,7 +410,7 @@ class PhenoAIRequestHandler(BaseHTTPRequestHandler):
             bytes(("phenoai-ok :: Predictions can only be made"
                    "via POST request.<br />Use the "
                    "phenoai.client module or the C++ interface "
-                   "to do this easily.", "utf8")))
+                   "to do this easily."), "utf8"))
 
     def do_POST(self):
         """ Takes care of the handling of HTTP POST requests made to PhenoAI

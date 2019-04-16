@@ -16,7 +16,7 @@ to run example script 06b after this script has been started.
 
 import numpy as np
 
-from phenoai.phenoai import PhenoAI
+from phenoai import PhenoAI
 from phenoai import logger
 from phenoai import utils
 
@@ -69,8 +69,8 @@ def TO_STRING(PhenoAIResults):
 	out = None
 	for i in range(len(PhenoAIResults)):
 		preds = PhenoAIResults[i].get_predictions()
-		if utils.is_none(out):
-			if not utils.is_none(PhenoAIResults[i].data_ids):
+		if out is None:
+			if PhenoAIResults[i].data_ids is not None:
 				out = np.vstack((PhenoAIResults[i].data_ids, preds))
 			if len(preds.shape) == 1:
 				out = preds.reshape(1,-1)
