@@ -16,15 +16,13 @@ Algorithm library
 The current version of the package allows the user to use algorithms trained by
 scikit-learn and keras. These algorithms have to be created by the user, or
 have to be loaded from an external source like the algorithm library:
-[http://hef.ru.nl/~bstienen/phenoai](http://hef.ru.nl/~bstienen/phenoai)
-(work in progress).
+http://hef.ru.nl/~bstienen/phenoai (work in progress).
 
 Documentation
 -------------
 
 Documentation, a quick start guide and a range of examples can be found on the
-official PhenoAI website:
-[http://hef.ru.nl/~bstienen/phenoai](http://hef.ru.nl/~bstienen/phenoai).
+official PhenoAI website: http://hef.ru.nl/~bstienen/phenoai.
 
 Citation
 --------
