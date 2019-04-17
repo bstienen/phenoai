@@ -21,7 +21,7 @@ setup(
     long_description=readme + '\n\n',
     author="Bob Stienen",
     author_email='b.stienen@science.ru.nl',
-    url='https://github.com//phenoai',
+    url='https://github.com/bstienen/phenoai',
     packages=[
         'phenoai',
     ],
