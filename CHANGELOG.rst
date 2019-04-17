@@ -5,8 +5,8 @@ Change Log
 All notable changes to this project will be documented in this file.
 This project adheres to `Semantic Versioning <http://semver.org/>`_.
 
-Version 0.2.0
-************
+Version 0.2.0 (Apr 16th, 2019)
+******************************
 
 Added
 -----
