@@ -61,4 +61,5 @@ Storing your high-dimensional results or parameter spaces as a machine learning 
    :name: toc_other
 
    pages/contributing.rst
+   pages/changelog.rst
    pages/faq.rst
