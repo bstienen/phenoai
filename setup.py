@@ -49,7 +49,16 @@ setup(
         # dependencies for `python setup.py build_sphinx`
         'sphinx',
         'sphinx_rtd_theme',
-        'recommonmark'
+        'recommonmark',
+        # dependencies for package
+        'numpy',
+        'json',
+        'requests',
+        'h5py',
+        'pyslha',
+        'yaml',
+        'matplotlib',
+        'pkg_resources'
     ],
     tests_require=[
         'pytest',
