@@ -48,7 +48,7 @@ setup(
         'requests',
         'h5py',
         'pyslha',
-        'yaml',
+        'pyyaml',
         'matplotlib',
         'pkg_resources'
     ],
