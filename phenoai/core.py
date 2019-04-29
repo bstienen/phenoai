@@ -489,14 +489,19 @@ class PhenoAIRequestHandler(BaseHTTPRequestHandler):
         logger.debug("Received raw values")
         # Predict lists of values
         data = ast.literal_eval(post['data'])
-        if post["data_ids"] == "false" or post["data_ids"] == "False":
+        if not "data_ids" in post:
+            data_ids = None
+        elif post["data_ids"] == "false" or post["data_ids"] == "False":
             data_ids = None
         else:
             data_ids = ast.literal_eval(post["data_ids"])
-        ainalysis_ids = ast.literal_eval(post["ainalysis_ids"])
-        # Perform prediction
-        if ainalysis_ids == "all":
+        if "ainalysis_ids" not in post:
             ainalysis_ids = None
+        else:
+            ainalysis_ids = ast.literal_eval(post["ainalysis_ids"])
+            # Perform prediction
+            if ainalysis_ids == "all":
+                ainalysis_ids = None
         logger.debug(("Calling run procedure of PhenoAI server " "instance"))
         return __serverinstance__.run(np.array(data),
                                       map_data=bool(float(post['mapping'])),
