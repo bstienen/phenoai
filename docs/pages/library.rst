@@ -4,4 +4,7 @@ One of the stengths of PhenoAI is that it allows the storage and communication o
 
 .. attention:: Do you have an AInalysis that you want to make public through this website? Contact us! You can find our contact information on the `FAQ page <faq.html>`_.
 
-.. note:: We intend to make this library a nicely searchable database in the near future.
+.. raw:: html
+
+    <iframe src="http://www.hef.ru.nl/~bstienen/phenoai/library/index.php" height="600px" width="100%" style="border:0;"></iframe>
+    
